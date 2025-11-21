@@ -104,11 +104,11 @@ We reserve the right, at Our sole discretion, to modify or replace these Terms a
 
 If you have any questions about these Terms and Conditions, You can contact us:
 
-- By email: [lu@evius.life]
+- By email: lu@evius.life
 
-- Address: [Add address placeholder here]
+- Address: Berlin, Germany
 
-- Phone: [Add phone placeholder here]
+- 
 
 ---
 

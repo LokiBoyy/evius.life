@@ -132,7 +132,7 @@ class _ContactPageState extends State<ContactPage> {
                     Divider(color: theme.colorScheme.outline, thickness: 1),
                     SizedBox(height: isMobile ? 32 : 40),
                     Text(
-                      'Obligatory contact information',
+                      'Contact information',
                       style: theme.textTheme.titleLarge?.copyWith(
                         fontWeight: FontWeight.w600,
                         color: theme.colorScheme.onSurface,
@@ -155,16 +155,10 @@ class _ContactPageState extends State<ContactPage> {
                     SizedBox(height: isMobile ? 16 : 20),
                     _ContactInfoItem(
                       label: 'Address',
-                      value: '[Add address placeholder here]',
+                      value: 'Berlin, Germany',
                       theme: theme,
                     ),
                     SizedBox(height: isMobile ? 16 : 20),
-                    _ContactInfoItem(
-                      label: 'Phone',
-                      value: '[Add phone placeholder here]',
-                      theme: theme,
-                    ),
-                    SizedBox(height: isMobile ? 48 : 64),
                   ],
                 ),
               ),
