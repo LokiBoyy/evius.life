@@ -520,24 +520,35 @@ class WorkSection extends StatelessWidget {
                       SizedBox(height: isMobile ? 20 : 24),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            project.$1,
-                            style: theme.textTheme.titleLarge?.copyWith(
-                              fontWeight: FontWeight.w600,
-                              color: theme.colorScheme.onSurface,
+                          Flexible(
+                            child: Text(
+                              project.$1,
+                              style: theme.textTheme.titleLarge?.copyWith(
+                                fontWeight: FontWeight.w600,
+                                color: theme.colorScheme.onSurface,
+                              ),
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
+                          const SizedBox(width: 12),
                           Chip(
-                            label: Text(project.$4),
+                            label: Text(
+                              project.$4,
+                              style: theme.textTheme.bodySmall?.copyWith(
+                                color: theme.colorScheme.onSurface,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 6,
+                            ),
                             backgroundColor:
                                 theme.colorScheme.surfaceContainerHighest,
                             side: BorderSide(color: theme.colorScheme.outline),
-                            labelStyle: theme.textTheme.bodySmall?.copyWith(
-                              color: theme.colorScheme.onSurface.withValues(
-                                alpha: 0.7,
-                              ),
-                            ),
                           ),
                         ],
                       ),
@@ -581,8 +592,8 @@ class Footer extends StatelessWidget {
             children: [
               Icon(
                 Icons.favorite,
-                size: 16,
-                color: theme.colorScheme.primary.withValues(alpha: 0.8),
+                size: 24,
+                color: theme.colorScheme.secondary.withValues(alpha: 0.8),
               ),
               const SizedBox(width: 8),
               Text(
@@ -596,7 +607,7 @@ class Footer extends StatelessWidget {
                 'Lokesh Upputri',
                 style: theme.textTheme.bodyLarge?.copyWith(
                   color: theme.colorScheme.primary,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.normal,
                   letterSpacing: 0.5,
                 ),
               ),
