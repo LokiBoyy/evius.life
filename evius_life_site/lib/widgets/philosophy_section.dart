@@ -20,7 +20,7 @@ class PhilosophyAndPrinciplesSection extends StatelessWidget {
     ),
     (
       'My Privacy',
-      'Privacy by default. No analytics, no tracking, no collection.',
+      'Privacy by default. No monitor, no tracking, no collection.',
       Icons.lock_outline,
     ),
   ];
