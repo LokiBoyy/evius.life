@@ -59,6 +59,51 @@ class SeoService {
     }
   }
 
+  /// Set semantic H1 heading for SEO (hidden but readable by search engines)
+  static void setH1Heading(String text) {
+    if (!kIsWeb) return;
+
+    // Remove existing SEO headings
+    final existingH1 = html.document.querySelector('#seo-h1');
+    existingH1?.remove();
+
+    // Create hidden H1 for SEO
+    final h1 = html.HeadingElement.h1()
+      ..id = 'seo-h1'
+      ..text = text
+      ..style.display = 'none'
+      ..setAttribute('aria-hidden', 'true');
+    html.document.body?.insertAdjacentElement('afterBegin', h1);
+  }
+
+  /// Set semantic H2 headings for SEO (hidden but readable by search engines)
+  static void setH2Headings(List<String> headings) {
+    if (!kIsWeb) return;
+
+    // Remove existing SEO H2s
+    final existingH2s = html.document.querySelectorAll('#seo-headings h2');
+    for (var h2 in existingH2s) {
+      h2.remove();
+    }
+
+    // Create container for SEO headings if it doesn't exist
+    var container =
+        html.document.querySelector('#seo-headings') as html.DivElement?;
+    if (container == null) {
+      container = html.DivElement()
+        ..id = 'seo-headings'
+        ..style.display = 'none'
+        ..setAttribute('aria-hidden', 'true');
+      html.document.body?.insertAdjacentElement('afterBegin', container);
+    }
+
+    // Add H2 headings
+    for (var heading in headings) {
+      final h2 = html.HeadingElement.h2()..text = heading;
+      container.append(h2);
+    }
+  }
+
   /// Set default/home page SEO
   static void setHomePageMeta() {
     setPageMeta(
@@ -70,6 +115,14 @@ class SeoService {
       url: baseUrl,
       type: 'website',
     );
+    // Set semantic headings with keywords
+    setH1Heading('evius.life - Digital tools with intention');
+    setH2Headings([
+      'Digital tools built slowly with care',
+      'Privacy-focused applications',
+      'Intentional design and beautiful software',
+      'What I\'m Building - Digital Tools',
+    ]);
   }
 
   /// Set contact page SEO
@@ -82,6 +135,12 @@ class SeoService {
       url: '$baseUrl/contact',
       type: 'website',
     );
+    // Set semantic headings with keywords
+    setH1Heading('Contact - evius.life App Developer');
+    setH2Headings([
+      'Contact Information',
+      'Get in touch with Lokesh Upputri',
+    ]);
   }
 
   /// Set privacy policy page SEO
@@ -94,6 +153,12 @@ class SeoService {
       url: '$baseUrl/privacy-policy',
       type: 'website',
     );
+    // Set semantic headings with keywords
+    setH1Heading('Privacy Policy - evius.life Data Protection');
+    setH2Headings([
+      'Privacy Policy',
+      'Data Protection and Privacy',
+    ]);
   }
 
   /// Set terms and conditions page SEO
@@ -106,5 +171,11 @@ class SeoService {
       url: '$baseUrl/terms-conditions',
       type: 'website',
     );
+    // Set semantic headings with keywords
+    setH1Heading('Terms and Conditions - evius.life Terms of Service');
+    setH2Headings([
+      'Terms and Conditions',
+      'Terms of Service',
+    ]);
   }
 }

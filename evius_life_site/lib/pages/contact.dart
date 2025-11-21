@@ -61,7 +61,7 @@ class _ContactPageState extends State<ContactPage> {
                     SizedBox(height: isMobile ? 24 : 40),
                     // Header section
                     Text(
-                      'Hi, I\'m Lokesh 👋',
+                      'Hi, I\'m Loki 👋',
                       style: theme.textTheme.headlineLarge?.copyWith(
                         fontWeight: FontWeight.w700,
                         color: theme.colorScheme.onSurface,

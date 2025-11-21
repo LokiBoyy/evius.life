@@ -20,6 +20,36 @@
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
+  <!-- Responsive CSS Media Queries for SEO -->
+  <style>
+    /* Mobile-first responsive design */
+    @media (max-width: 768px) {
+      body {
+        font-size: 14px;
+      }
+    }
+    
+    @media (min-width: 769px) and (max-width: 1024px) {
+      body {
+        font-size: 16px;
+      }
+    }
+    
+    @media (min-width: 1025px) {
+      body {
+        font-size: 18px;
+      }
+    }
+    
+    /* Ensure proper scaling on all devices */
+    @media (max-width: 480px) {
+      body {
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+      }
+    }
+  </style>
+  
   <!-- Primary Meta Tags -->
   <meta name="title" content="evius.life - Digital tools with intention">
   <meta name="description" content="Digital tools built slowly, with care. Creating intentional, beautiful, and privacy-focused applications that respect your attention.">
@@ -48,6 +78,29 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
   <link rel="canonical" href="https://evius.life/">
+  
+  <!--
+    CDN Configuration for Better Performance:
+    To improve website loading times, reduce bandwidth costs, and increase content availability:
+    
+    1. Serve static assets (images, JS, CSS) from a CDN:
+       - Update asset paths to use CDN URL (e.g., https://cdn.evius.life/)
+       - Consider using services like Cloudflare, AWS CloudFront, or jsDelivr
+    
+    2. Example CDN configuration:
+       <link rel="stylesheet" href="https://cdn.evius.life/styles.css">
+       <script src="https://cdn.evius.life/flutter_bootstrap.js"></script>
+    
+    3. For Flutter web builds, configure CDN in build process:
+       - Use --base-href with CDN URL
+       - Or configure CDN at hosting level (GitHub Pages, Netlify, Vercel)
+    
+    4. Benefits:
+       - Faster loading times globally
+       - Reduced server bandwidth
+       - Better redundancy and availability
+       - Improved SEO ranking signals
+  -->
 
   <title>evius.life - Digital tools with intention</title>
   <link rel="manifest" href="manifest.json">
