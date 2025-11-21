@@ -15,7 +15,7 @@ class PhilosophyAndPrinciplesSection extends StatelessWidget {
     ),
     (
       'My Data',
-      'Your data stays on your device. No cloud, no accounts, no selling.',
+      'Your data stays on your device. No cloud, no accounts, no harvesting.',
       Icons.storage_outlined,
     ),
     (
