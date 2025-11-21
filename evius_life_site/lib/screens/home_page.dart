@@ -7,10 +7,23 @@ import '../widgets/work_section.dart';
 import '../widgets/footer.dart';
 import '../utils/responsive.dart';
 import '../config/constants.dart';
+import '../utils/seo_service.dart';
 
 /// Home page screen
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    // Ensure SEO is set when page loads
+    SeoService.setHomePageMeta();
+  }
 
   @override
   Widget build(BuildContext context) {

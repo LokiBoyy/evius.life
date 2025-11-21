@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../utils/responsive.dart';
 import '../config/constants.dart';
+import '../utils/seo_service.dart';
 
 class TermsConditionsPage extends StatefulWidget {
   const TermsConditionsPage({super.key});
@@ -17,6 +18,7 @@ class _TermsConditionsPageState extends State<TermsConditionsPage> {
   @override
   void initState() {
     super.initState();
+    SeoService.setTermsConditionsMeta();
     _loadContent();
   }
 

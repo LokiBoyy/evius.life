@@ -4,20 +4,28 @@ import 'package:flutter_animate/flutter_animate.dart';
 import '../utils/url_launcher.dart';
 import '../utils/responsive.dart';
 import '../config/constants.dart';
+import '../utils/seo_service.dart';
 
-class ContactPage extends StatelessWidget {
+class ContactPage extends StatefulWidget {
   const ContactPage({super.key});
 
-  Future<void> _launchEmail() async {
-    await UrlLauncher.launchEmail(AppConstants.contactEmail);
-  }
+  @override
+  State<ContactPage> createState() => _ContactPageState();
+}
 
-  Future<void> _launchUrl(String url) async {
-    await UrlLauncher.launchUrlExternal(url);
+class _ContactPageState extends State<ContactPage> {
+  @override
+  void initState() {
+    super.initState();
+    SeoService.setContactPageMeta();
   }
 
   @override
   Widget build(BuildContext context) {
+    Future<void> _launchEmail() async {
+      await UrlLauncher.launchEmail(AppConstants.contactEmail);
+    }
+
     final theme = Theme.of(context);
     final isMobile = Responsive.isMobile(context);
 
@@ -53,16 +61,13 @@ class ContactPage extends StatelessWidget {
                     SizedBox(height: isMobile ? 24 : 40),
                     // Header section
                     Text(
-                          'Hi, I\'m Lokesh 👋',
-                          style: theme.textTheme.headlineLarge?.copyWith(
-                            fontWeight: FontWeight.w700,
-                            color: theme.colorScheme.onSurface,
-                            fontSize: isMobile ? 32 : 48,
-                          ),
-                        )
-                        .animate()
-                        .fadeIn(duration: 600.ms, delay: 100.ms)
-                        .slideY(
+                      'Hi, I\'m Lokesh 👋',
+                      style: theme.textTheme.headlineLarge?.copyWith(
+                        fontWeight: FontWeight.w700,
+                        color: theme.colorScheme.onSurface,
+                        fontSize: isMobile ? 32 : 48,
+                      ),
+                    ).animate().fadeIn(duration: 600.ms, delay: 100.ms).slideY(
                           begin: -0.2,
                           end: 0,
                           duration: 600.ms,
@@ -71,20 +76,17 @@ class ContactPage extends StatelessWidget {
                     SizedBox(height: isMobile ? 24 : 32),
                     // Bio section
                     Text(
-                          'I\'m an independent app developer building tools that respect your attention. '
-                          'I believe digital tools have become soulless, so I create apps that are '
-                          'intentional, beautiful, and privacy-focused.',
-                          style: theme.textTheme.bodyLarge?.copyWith(
-                            color: theme.colorScheme.onSurface.withValues(
-                              alpha: 0.8,
-                            ),
-                            height: 1.8,
-                            fontSize: isMobile ? 16 : 18,
-                          ),
-                        )
-                        .animate()
-                        .fadeIn(duration: 600.ms, delay: 200.ms)
-                        .slideY(
+                      'I\'m an independent app developer building tools that respect your attention. '
+                      'I believe digital tools have become soulless, so I create apps that are '
+                      'intentional, beautiful, and privacy-focused.',
+                      style: theme.textTheme.bodyLarge?.copyWith(
+                        color: theme.colorScheme.onSurface.withValues(
+                          alpha: 0.8,
+                        ),
+                        height: 1.8,
+                        fontSize: isMobile ? 16 : 18,
+                      ),
+                    ).animate().fadeIn(duration: 600.ms, delay: 200.ms).slideY(
                           begin: -0.1,
                           end: 0,
                           duration: 600.ms,
@@ -92,18 +94,15 @@ class ContactPage extends StatelessWidget {
                         ),
                     SizedBox(height: isMobile ? 32 : 48),
                     Text(
-                          'If you have questions or feedback, please don\'t hesitate to contact me.',
-                          style: theme.textTheme.bodyLarge?.copyWith(
-                            color: theme.colorScheme.onSurface.withValues(
-                              alpha: 0.7,
-                            ),
-                            height: 1.8,
-                            fontSize: isMobile ? 16 : 18,
-                          ),
-                        )
-                        .animate()
-                        .fadeIn(duration: 600.ms, delay: 300.ms)
-                        .slideY(
+                      'If you have questions or feedback, please don\'t hesitate to contact me.',
+                      style: theme.textTheme.bodyLarge?.copyWith(
+                        color: theme.colorScheme.onSurface.withValues(
+                          alpha: 0.7,
+                        ),
+                        height: 1.8,
+                        fontSize: isMobile ? 16 : 18,
+                      ),
+                    ).animate().fadeIn(duration: 600.ms, delay: 300.ms).slideY(
                           begin: -0.1,
                           end: 0,
                           duration: 600.ms,
@@ -112,26 +111,17 @@ class ContactPage extends StatelessWidget {
                     SizedBox(height: isMobile ? 48 : 64),
                     // Contact methods
                     Wrap(
-                          spacing: isMobile ? 16 : 24,
-                          runSpacing: isMobile ? 16 : 24,
-                          children: [
-                            _ContactButton(
-                              label: 'Email',
-                              icon: Icons.mail_outline,
-                              onTap: _launchEmail,
-                              color: theme.colorScheme.primary,
-                            ),
-                            _ContactButton(
-                              label: 'Twitter',
-                              icon: Icons.alternate_email,
-                              onTap: () => _launchUrl('https://twitter.com'),
-                              color: theme.colorScheme.secondary,
-                            ),
-                          ],
-                        )
-                        .animate()
-                        .fadeIn(duration: 600.ms, delay: 400.ms)
-                        .slideY(
+                      spacing: isMobile ? 16 : 24,
+                      runSpacing: isMobile ? 16 : 24,
+                      children: [
+                        _ContactButton(
+                          label: 'Email',
+                          icon: Icons.mail_outline,
+                          onTap: _launchEmail,
+                          color: theme.colorScheme.primary,
+                        ),
+                      ],
+                    ).animate().fadeIn(duration: 600.ms, delay: 400.ms).slideY(
                           begin: 0.1,
                           end: 0,
                           duration: 600.ms,
@@ -242,9 +232,8 @@ class _ContactButtonState extends State<_ContactButton> {
               Text(
                 widget.label,
                 style: theme.textTheme.bodyLarge?.copyWith(
-                  color: _isHovered
-                      ? widget.color
-                      : theme.colorScheme.onSurface,
+                  color:
+                      _isHovered ? widget.color : theme.colorScheme.onSurface,
                   fontWeight: _isHovered ? FontWeight.w600 : FontWeight.w500,
                 ),
               ),

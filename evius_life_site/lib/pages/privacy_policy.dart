@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../utils/responsive.dart';
 import '../config/constants.dart';
+import '../utils/seo_service.dart';
 
 class PrivacyPolicyPage extends StatefulWidget {
   const PrivacyPolicyPage({super.key});
@@ -17,6 +18,7 @@ class _PrivacyPolicyPageState extends State<PrivacyPolicyPage> {
   @override
   void initState() {
     super.initState();
+    SeoService.setPrivacyPolicyMeta();
     _loadContent();
   }
 
