@@ -280,9 +280,7 @@ class _ContactInfoItem extends StatelessWidget {
           child: Text(
             value,
             style: theme.textTheme.bodyLarge?.copyWith(
-              color: onTap != null
-                  ? theme.colorScheme.secondary
-                  : theme.colorScheme.onSurface.withValues(alpha: 0.8),
+              color: theme.colorScheme.secondary,
               fontSize: isMobile ? 15 : 16,
               decoration: onTap != null ? TextDecoration.underline : null,
             ),
