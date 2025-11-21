@@ -155,7 +155,7 @@ class _ContactPageState extends State<ContactPage> {
                     SizedBox(height: isMobile ? 16 : 20),
                     _ContactInfoItem(
                       label: 'Address',
-                      value: 'Berlin, Germany',
+                      value: 'Transvaalstraße 1. 13361 Berlin, Germany',
                       theme: theme,
                     ),
                     SizedBox(height: isMobile ? 16 : 20),

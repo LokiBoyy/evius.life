@@ -7,7 +7,7 @@
 1.2 Responsible for data processing regarding this app within the meaning of the General Data Protection Regulation (GDPR):
 
 **Lokesh Upputri**  
-Address: Berlin, Germany   
+Address: Transvaalstraße 1. 13361 Berlin, Germany   
 Email: lu@evius.life
 
 The person responsible for the processing of personal data is the natural or legal person who alone or jointly with others decides on the purposes and means of the processing of personal data.

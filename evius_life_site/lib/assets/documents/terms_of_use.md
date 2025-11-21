@@ -106,9 +106,7 @@ If you have any questions about these Terms and Conditions, You can contact us:
 
 - By email: lu@evius.life
 
-- Address: Berlin, Germany
-
-- 
+- Address: Transvaalstraße 1. 13361 Berlin, Germany
 
 ---
 
