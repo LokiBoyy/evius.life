@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 void main() {
   runApp(const EviusLifeApp());
@@ -189,74 +190,86 @@ class HeroSection extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            'I think we are missing\nthe beauty in our digital lives.',
-            textAlign: TextAlign.center,
-            style: theme.textTheme.displayLarge?.copyWith(
-              fontSize: isMobile
-                  ? 36
-                  : isTablet
-                  ? 56
-                  : 80,
-              fontWeight: FontWeight.w300,
-              height: 1.1,
-              letterSpacing: -1,
-              color: theme.colorScheme.onSurface,
-            ),
-          ),
+                'I think we are missing\nthe beauty in our digital lives.',
+                textAlign: TextAlign.center,
+                style: theme.textTheme.displayLarge?.copyWith(
+                  fontSize: isMobile
+                      ? 36
+                      : isTablet
+                      ? 56
+                      : 80,
+                  fontWeight: FontWeight.w300,
+                  height: 1.1,
+                  letterSpacing: -1,
+                  color: theme.colorScheme.onSurface,
+                ),
+              )
+              .animate()
+              .fadeIn(duration: 600.ms, delay: 100.ms)
+              .slideY(begin: -0.2, end: 0, duration: 600.ms, delay: 100.ms),
           SizedBox(height: isMobile ? 60 : 100),
           // Large visual element
           Card(
-            elevation: 0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(40),
-            ),
-            color: theme.colorScheme.primaryContainer,
-            child: Container(
-              constraints: BoxConstraints(
-                maxWidth: isMobile ? double.infinity : 900,
-                maxHeight: isMobile ? 400 : 600,
-              ),
-              padding: const EdgeInsets.all(1),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(34),
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    theme.colorScheme.primary,
-                    theme.colorScheme.secondary,
-                  ],
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40),
                 ),
-              ),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(34),
-                  color: theme.colorScheme.surface,
-                ),
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.phone_iphone,
-                        size: isMobile ? 80 : 120,
-                        color: theme.colorScheme.primary,
-                      ),
-                      const SizedBox(height: 24),
-                      Text(
-                        'Visual Preview',
-                        style: theme.textTheme.titleLarge?.copyWith(
-                          color: theme.colorScheme.onSurface.withValues(
-                            alpha: 0.6,
+                color: theme.colorScheme.primaryContainer,
+                child: Container(
+                  constraints: BoxConstraints(
+                    maxWidth: isMobile ? double.infinity : 900,
+                    maxHeight: isMobile ? 400 : 600,
+                  ),
+                  padding: const EdgeInsets.all(1),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(34),
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        theme.colorScheme.primary,
+                        theme.colorScheme.secondary,
+                      ],
+                    ),
+                  ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(34),
+                      color: theme.colorScheme.surface,
+                    ),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.phone_iphone,
+                            size: isMobile ? 80 : 120,
+                            color: theme.colorScheme.primary,
                           ),
-                        ),
+                          const SizedBox(height: 24),
+                          Text(
+                            'Visual Preview',
+                            style: theme.textTheme.titleLarge?.copyWith(
+                              color: theme.colorScheme.onSurface.withValues(
+                                alpha: 0.6,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
-            ),
-          ),
+              )
+              .animate()
+              .scale(
+                begin: const Offset(0.9, 0.9),
+                end: const Offset(1, 1),
+                duration: 800.ms,
+                delay: 300.ms,
+                curve: Curves.easeOutCubic,
+              )
+              .fadeIn(duration: 800.ms, delay: 300.ms),
           /*SizedBox(height: isMobile ? 40 : 60),
           Container(
             constraints: const BoxConstraints(maxWidth: 700),
@@ -317,27 +330,45 @@ class PhilosophyAndPrinciplesSection extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Digital tools have become soulless.',
-                  style: theme.textTheme.headlineLarge?.copyWith(
-                    fontWeight: FontWeight.w700,
-                    fontSize: isMobile
-                        ? 32
-                        : isTablet
-                        ? 40
-                        : 48,
-                    color: theme.colorScheme.onSurface,
-                  ),
-                ),
+                      'Digital tools have become soulless.',
+                      style: theme.textTheme.headlineLarge?.copyWith(
+                        fontWeight: FontWeight.w700,
+                        fontSize: isMobile
+                            ? 32
+                            : isTablet
+                            ? 40
+                            : 48,
+                        color: theme.colorScheme.onSurface,
+                      ),
+                    )
+                    .animate()
+                    .fadeIn(duration: 600.ms, delay: 200.ms)
+                    .slideX(
+                      begin: -0.2,
+                      end: 0,
+                      duration: 600.ms,
+                      delay: 200.ms,
+                    ),
                 SizedBox(height: isMobile ? 24 : 32),
                 Text(
-                  'I build tools that respect your attention. Every pixel is intentional. '
-                  'This is slow, deliberate work. Built with care, not speed.',
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
-                    height: 1.8,
-                    fontSize: isMobile ? 16 : 18,
-                  ),
-                ),
+                      'I build tools that respect your attention. Every pixel is intentional. '
+                      'This is slow, deliberate work. Built with care, not speed.',
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        color: theme.colorScheme.onSurface.withValues(
+                          alpha: 0.7,
+                        ),
+                        height: 1.8,
+                        fontSize: isMobile ? 16 : 18,
+                      ),
+                    )
+                    .animate()
+                    .fadeIn(duration: 600.ms, delay: 400.ms)
+                    .slideX(
+                      begin: -0.2,
+                      end: 0,
+                      duration: 600.ms,
+                      delay: 400.ms,
+                    ),
               ],
             ),
           ),
@@ -352,59 +383,70 @@ class PhilosophyAndPrinciplesSection extends StatelessWidget {
                   final principle = entry.value;
                   final useSecondary = index == 1; // Middle item uses secondary
                   return Padding(
-                    padding: EdgeInsets.only(
-                      bottom: index < principles.length - 1
-                          ? (isMobile ? 16 : 24)
-                          : 0,
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(12),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            color: useSecondary
-                                ? theme.colorScheme.secondaryContainer
-                                : theme.colorScheme.primaryContainer,
-                          ),
-                          child: Icon(
-                            principle.$3,
-                            color: useSecondary
-                                ? theme.colorScheme.onSecondaryContainer
-                                : theme.colorScheme.onPrimaryContainer,
-                            size: 24,
-                          ),
+                        padding: EdgeInsets.only(
+                          bottom: index < principles.length - 1
+                              ? (isMobile ? 16 : 24)
+                              : 0,
                         ),
-                        SizedBox(width: isMobile ? 16 : 20),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                principle.$1,
-                                style: theme.textTheme.titleMedium?.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: isMobile ? 18 : 20,
-                                  color: theme.colorScheme.onSurface,
-                                ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(12),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                color: useSecondary
+                                    ? theme.colorScheme.secondaryContainer
+                                    : theme.colorScheme.primaryContainer,
                               ),
-                              const SizedBox(height: 4),
-                              Text(
-                                principle.$2,
-                                style: theme.textTheme.bodyMedium?.copyWith(
-                                  color: theme.colorScheme.onSurface.withValues(
-                                    alpha: 0.7,
+                              child: Icon(
+                                principle.$3,
+                                color: useSecondary
+                                    ? theme.colorScheme.onSecondaryContainer
+                                    : theme.colorScheme.onPrimaryContainer,
+                                size: 24,
+                              ),
+                            ),
+                            SizedBox(width: isMobile ? 16 : 20),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    principle.$1,
+                                    style: theme.textTheme.titleMedium
+                                        ?.copyWith(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: isMobile ? 18 : 20,
+                                          color: theme.colorScheme.onSurface,
+                                        ),
                                   ),
-                                  height: 1.5,
-                                ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    principle.$2,
+                                    style: theme.textTheme.bodyMedium?.copyWith(
+                                      color: theme.colorScheme.onSurface
+                                          .withValues(alpha: 0.7),
+                                      height: 1.5,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  );
+                      )
+                      .animate()
+                      .fadeIn(
+                        duration: 500.ms,
+                        delay: (600 + (entry.key * 150)).ms,
+                      )
+                      .slideX(
+                        begin: 0.2,
+                        end: 0,
+                        duration: 500.ms,
+                        delay: (600 + (entry.key * 150)).ms,
+                      );
                 }).toList(),
               ],
             ),
@@ -456,26 +498,32 @@ class WorkSection extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            'What I\'m Building',
-            style: theme.textTheme.headlineLarge?.copyWith(
-              fontWeight: FontWeight.w700,
-              fontSize: isMobile
-                  ? 32
-                  : isTablet
-                  ? 40
-                  : 48,
-              color: theme.colorScheme.onSurface,
-            ),
-            textAlign: TextAlign.center,
-          ),
+                'What I\'m Building',
+                style: theme.textTheme.headlineLarge?.copyWith(
+                  fontWeight: FontWeight.w700,
+                  fontSize: isMobile
+                      ? 32
+                      : isTablet
+                      ? 40
+                      : 48,
+                  color: theme.colorScheme.onSurface,
+                ),
+                textAlign: TextAlign.center,
+              )
+              .animate()
+              .fadeIn(duration: 600.ms)
+              .slideY(begin: -0.2, end: 0, duration: 600.ms),
           SizedBox(height: isMobile ? 16 : 24),
           Text(
-            'Tools I want to use. Built slowly, with care.',
-            textAlign: TextAlign.center,
-            style: theme.textTheme.titleMedium?.copyWith(
-              color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
-            ),
-          ),
+                'Tools I want to use. Built slowly, with care.',
+                textAlign: TextAlign.center,
+                style: theme.textTheme.titleMedium?.copyWith(
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                ),
+              )
+              .animate()
+              .fadeIn(duration: 600.ms, delay: 200.ms)
+              .slideY(begin: -0.1, end: 0, duration: 600.ms, delay: 200.ms),
           SizedBox(height: isMobile ? 40 : 60),
           GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
@@ -491,81 +539,92 @@ class WorkSection extends StatelessWidget {
               final project = projects[index];
               final useSecondary = index == 1; // Middle project uses secondary
               return Card(
-                elevation: 0,
-                color: theme.colorScheme.surfaceContainer,
-                child: Padding(
-                  padding: EdgeInsets.all(isMobile ? 24 : 32),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Visual mockup
-                      Expanded(
-                        child: Card(
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          color: theme.colorScheme.surfaceContainerHighest,
-                          child: Center(
-                            child: Icon(
-                              project.$3,
-                              size: isMobile ? 60 : 80,
-                              color: useSecondary
-                                  ? theme.colorScheme.secondary
-                                  : theme.colorScheme.primary,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: isMobile ? 20 : 24),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    elevation: 0,
+                    color: theme.colorScheme.surfaceContainer,
+                    child: Padding(
+                      padding: EdgeInsets.all(isMobile ? 24 : 32),
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Flexible(
-                            child: Text(
-                              project.$1,
-                              style: theme.textTheme.titleLarge?.copyWith(
-                                fontWeight: FontWeight.w600,
-                                color: theme.colorScheme.onSurface,
+                          // Visual mockup
+                          Expanded(
+                            child: Card(
+                              elevation: 0,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
                               ),
-                              overflow: TextOverflow.ellipsis,
+                              color: theme.colorScheme.surfaceContainerHighest,
+                              child: Center(
+                                child: Icon(
+                                  project.$3,
+                                  size: isMobile ? 60 : 80,
+                                  color: useSecondary
+                                      ? theme.colorScheme.secondary
+                                      : theme.colorScheme.primary,
+                                ),
+                              ),
                             ),
                           ),
-                          const SizedBox(width: 12),
-                          Chip(
-                            label: Text(
-                              project.$4,
-                              style: theme.textTheme.bodySmall?.copyWith(
-                                color: theme.colorScheme.onSurface,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
+                          SizedBox(height: isMobile ? 20 : 24),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  project.$1,
+                                  style: theme.textTheme.titleLarge?.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    color: theme.colorScheme.onSurface,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
+                              const SizedBox(width: 12),
+                              Chip(
+                                label: Text(
+                                  project.$4,
+                                  style: theme.textTheme.bodySmall?.copyWith(
+                                    color: theme.colorScheme.onSurface,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 12,
+                                  vertical: 6,
+                                ),
+                                backgroundColor:
+                                    theme.colorScheme.surfaceContainerHighest,
+                                side: BorderSide(
+                                  color: theme.colorScheme.outline,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 12),
+                          Text(
+                            project.$2,
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              color: theme.colorScheme.onSurface.withValues(
+                                alpha: 0.7,
+                              ),
+                              height: 1.6,
                             ),
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 6,
-                            ),
-                            backgroundColor:
-                                theme.colorScheme.surfaceContainerHighest,
-                            side: BorderSide(color: theme.colorScheme.outline),
                           ),
                         ],
                       ),
-                      const SizedBox(height: 12),
-                      Text(
-                        project.$2,
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          color: theme.colorScheme.onSurface.withValues(
-                            alpha: 0.7,
-                          ),
-                          height: 1.6,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              );
+                    ),
+                  )
+                  .animate()
+                  .fadeIn(duration: 600.ms, delay: (400 + (index * 150)).ms)
+                  .scale(
+                    begin: const Offset(0.95, 0.95),
+                    end: const Offset(1, 1),
+                    duration: 600.ms,
+                    delay: (400 + (index * 150)).ms,
+                    curve: Curves.easeOutCubic,
+                  );
             },
           ),
         ],
