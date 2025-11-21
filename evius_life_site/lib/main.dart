@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const EviusLifeApp());
@@ -9,14 +10,43 @@ class EviusLifeApp extends StatelessWidget {
 
   static const Color neonAmber = Color(0xFFFFE169);
   static const Color electricCyan = Color(0xFF56F0FF);
-  static final Color deepSpace = Colors.blueGrey.shade900;
+  static const Color darkSurface = Color(0xFF0B0D16);
+  static const Color darkBackground = Color(0xFF05050A);
 
   @override
   Widget build(BuildContext context) {
-    final baseScheme = ColorScheme.fromSeed(
-      seedColor: neonAmber,
-      brightness: Brightness.dark,
-    );
+    final darkColorScheme =
+        ColorScheme.fromSeed(
+          seedColor: neonAmber,
+          brightness: Brightness.dark,
+        ).copyWith(
+          primary: neonAmber,
+          onPrimary: Colors.black,
+          primaryContainer: neonAmber.withValues(alpha: 0.2),
+          onPrimaryContainer: neonAmber,
+          secondary: electricCyan,
+          onSecondary: Colors.black,
+          secondaryContainer: electricCyan.withValues(alpha: 0.2),
+          onSecondaryContainer: electricCyan,
+          tertiary: electricCyan,
+          onTertiary: Colors.black,
+          tertiaryContainer: electricCyan.withValues(alpha: 0.2),
+          onTertiaryContainer: electricCyan,
+          surface: darkSurface,
+          onSurface: Colors.white,
+          surfaceContainerHighest: const Color(0xFF1A1D2A),
+          surfaceContainer: const Color(0xFF11182A),
+          surfaceContainerLow: darkSurface,
+          surfaceContainerLowest: darkBackground,
+          outline: Colors.white.withValues(alpha: 0.12),
+          outlineVariant: Colors.white.withValues(alpha: 0.08),
+          shadow: Colors.black,
+          scrim: Colors.black,
+          inverseSurface: Colors.white,
+          onInverseSurface: Colors.black,
+          inversePrimary: electricCyan,
+          surfaceTint: Colors.transparent,
+        );
 
     return MaterialApp(
       title: 'evius.life',
@@ -24,27 +54,48 @@ class EviusLifeApp extends StatelessWidget {
       themeMode: ThemeMode.dark,
       theme: ThemeData(
         useMaterial3: true,
-        colorScheme: baseScheme.copyWith(
-          primary: neonAmber,
-          inversePrimary: electricCyan,
-          secondary: electricCyan,
-          surfaceTint: Colors.transparent,
-          surface: const Color(0xFF0B0D16),
+        colorScheme: darkColorScheme,
+        scaffoldBackgroundColor: darkBackground,
+        textTheme: GoogleFonts.poppinsTextTheme(
+          Typography.whiteCupertino.apply(
+            displayColor: Colors.white,
+            bodyColor: Colors.white70,
+          ),
         ),
-        scaffoldBackgroundColor: const Color(0xFF05050A),
-        textTheme: Typography.whiteCupertino.apply(
-          displayColor: Colors.white,
-          bodyColor: Colors.white70,
+        cardTheme: CardThemeData(
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(28),
+          ),
+          color: darkColorScheme.surfaceContainer,
         ),
-        fontFamily: 'SF Pro Display',
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 18),
-            backgroundColor: neonAmber,
-            foregroundColor: Colors.black,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(18),
             ),
+          ),
+        ),
+        filledButtonTheme: FilledButtonThemeData(
+          style: FilledButton.styleFrom(
+            padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 18),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18),
+            ),
+          ),
+        ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: OutlinedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 18),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18),
+            ),
+          ),
+        ),
+        chipTheme: ChipThemeData(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
           ),
         ),
       ),
@@ -58,33 +109,27 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final isMobile = MediaQuery.of(context).size.width < 600;
     return Scaffold(
       body: SizedBox.expand(
         child: NeonGradientBackground(
           child: SingleChildScrollView(
             child: Column(
               children: [
-                const SizedBox(height: 32),
+                SizedBox(height: isMobile ? 24 : 40),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 48),
-                  child: Header(theme: theme),
+                  padding: EdgeInsets.symmetric(horizontal: isMobile ? 24 : 48),
+                  child: Header(),
                 ),
-                const SizedBox(height: 40),
+                SizedBox(height: isMobile ? 60 : 120),
                 const HeroSection(),
-                const SizedBox(height: 80),
-                const FeatureSection(),
-                const SizedBox(height: 80),
-                const CraftSection(),
-                const SizedBox(height: 80),
-                const ShowcaseSection(),
-                const SizedBox(height: 80),
-                const PraiseSection(),
-                const SizedBox(height: 80),
-                const CallToActionSection(),
-                const SizedBox(height: 60),
+                SizedBox(height: isMobile ? 80 : 160),
+                const PhilosophyAndPrinciplesSection(),
+                SizedBox(height: isMobile ? 80 : 160),
+                const WorkSection(),
+                SizedBox(height: isMobile ? 80 : 160),
                 const Footer(),
-                const SizedBox(height: 40),
+                SizedBox(height: isMobile ? 40 : 60),
               ],
             ),
           ),
@@ -95,104 +140,36 @@ class HomePage extends StatelessWidget {
 }
 
 class Header extends StatelessWidget {
-  const Header({required this.theme, super.key});
-
-  final ThemeData theme;
+  const Header({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = theme.textTheme.bodyLarge;
+    final theme = Theme.of(context);
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Row(
-          children: [
-            Container(
-              height: 54,
+        Container(
+          padding: const EdgeInsets.all(3),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(11),
+            child: Image.asset(
+              'lib/assets/eviuslife.png',
+              fit: BoxFit.cover,
               width: 54,
-              padding: const EdgeInsets.all(3),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(14),
-                gradient: const LinearGradient(
-                  colors: [Color(0xFFFFE169), Color(0xFF56F0FF)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Color(0x3356F0FF),
-                    blurRadius: 16,
-                    offset: Offset(0, 6),
-                  ),
-                ],
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(11),
-                child: Image.asset(
-                  'lib/assets/eviuslife.png',
-                  fit: BoxFit.cover,
-                ),
-              ),
+              height: 54,
             ),
-            const SizedBox(width: 12),
-            Text(
-              'evius.life',
-              style: theme.textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.bold,
-                letterSpacing: 1.2,
-              ),
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            _HeaderLink(label: 'Vision', textStyle: textStyle),
-            _HeaderLink(label: 'Studio', textStyle: textStyle),
-            _HeaderLink(label: 'Experiments', textStyle: textStyle),
-            _HeaderLink(label: 'Notes', textStyle: textStyle),
-            const SizedBox(width: 24),
-            OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                foregroundColor: Colors.white,
-                side: const BorderSide(color: Color(0xFF56F0FF), width: 1.2),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 16,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-              ),
-              onPressed: () {},
-              child: const Text('Join early list'),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-class _HeaderLink extends StatelessWidget {
-  const _HeaderLink({required this.label, required this.textStyle});
-
-  final String label;
-  final TextStyle? textStyle;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      child: MouseRegion(
-        cursor: SystemMouseCursors.click,
-        child: Text(
-          label,
-          style: textStyle?.copyWith(
-            color: Colors.white70,
-            fontWeight: FontWeight.w600,
           ),
         ),
-      ),
+        const SizedBox(width: 12),
+        Text(
+          'evius.life',
+          style: theme.textTheme.titleLarge?.copyWith(
+            fontWeight: FontWeight.bold,
+            letterSpacing: 1.2,
+            color: theme.colorScheme.onSurface,
+          ),
+        ),
+      ],
     );
   }
 }
@@ -203,437 +180,233 @@ class HeroSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isCompact = MediaQuery.of(context).size.width < 900;
+    final width = MediaQuery.of(context).size.width;
+    final isMobile = width < 600;
+    final isTablet = width < 900;
+
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 48),
-      child: Flex(
-        direction: isCompact ? Axis.vertical : Axis.horizontal,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
+      padding: EdgeInsets.symmetric(horizontal: isMobile ? 24 : 48),
+      child: Column(
         children: [
-          Flexible(
-            flex: 1,
-            fit: isCompact ? FlexFit.loose : FlexFit.tight,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(999),
-                    border: Border.all(color: Colors.white24),
-                  ),
-                  child: const Text('Toolsmith • Design-first • Habit Lab'),
-                ),
-                const SizedBox(height: 24),
-                Text(
-                  'Reimagining everyday tools\nuntil they feel alive.',
-                  style: theme.textTheme.displayLarge?.copyWith(
-                    fontSize: isCompact ? 48 : 64,
-                    fontWeight: FontWeight.w700,
-                    height: 1.1,
-                  ),
-                ),
-                const SizedBox(height: 24),
-                Text(
-                  'evius.life is a digital atelier by Lokesh Uupputri. '
-                  'Every experience is crafted with brutal clarity, neon warmth, '
-                  'and a bias for delightful automation. Habit tracking, planners, '
-                  'and dashboards are reinvented from first principles.',
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    color: Colors.white70,
-                    height: 1.6,
-                  ),
-                ),
-                const SizedBox(height: 32),
-                Wrap(
-                  spacing: 16,
-                  runSpacing: 16,
-                  children: [
-                    ElevatedButton.icon(
-                      onPressed: () {},
-                      icon: const Icon(Icons.apple),
-                      label: const Text('iOS preview placeholder'),
-                    ),
-                    OutlinedButton.icon(
-                      onPressed: () {},
-                      icon: const Icon(Icons.android),
-                      style: OutlinedButton.styleFrom(
-                        foregroundColor: Colors.white,
-                        side: const BorderSide(color: Colors.white24),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 24,
-                          vertical: 18,
-                        ),
-                      ),
-                      label: const Text('Android preview placeholder'),
-                    ),
-                  ],
-                ),
-              ],
+          Text(
+            'I think we are missing\nthe beauty in our digital lives.',
+            textAlign: TextAlign.center,
+            style: theme.textTheme.displayLarge?.copyWith(
+              fontSize: isMobile
+                  ? 36
+                  : isTablet
+                  ? 56
+                  : 80,
+              fontWeight: FontWeight.w300,
+              height: 1.1,
+              letterSpacing: -1,
+              color: theme.colorScheme.onSurface,
             ),
           ),
-          const SizedBox(width: 48, height: 48),
-          Flexible(
-            flex: 1,
-            fit: isCompact ? FlexFit.loose : FlexFit.tight,
-            child: AspectRatio(
-              aspectRatio: 4 / 3,
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(32),
-                  gradient: const LinearGradient(
-                    colors: [Color(0xFFFFE169), Color(0xFF56F0FF)],
-                  ),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Color(0x6656F0FF),
-                      blurRadius: 60,
-                      offset: Offset(0, 20),
-                    ),
+          SizedBox(height: isMobile ? 60 : 100),
+          // Large visual element
+          Card(
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(40),
+            ),
+            color: theme.colorScheme.primaryContainer,
+            child: Container(
+              constraints: BoxConstraints(
+                maxWidth: isMobile ? double.infinity : 900,
+                maxHeight: isMobile ? 400 : 600,
+              ),
+              padding: const EdgeInsets.all(1),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(34),
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    theme.colorScheme.primary,
+                    theme.colorScheme.secondary,
                   ],
                 ),
-                child: Container(
-                  margin: const EdgeInsets.all(4),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(28),
-                    color: Colors.black.withValues(alpha: 0.9),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'App mock placeholder',
-                      style: theme.textTheme.titleLarge,
-                    ),
+              ),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(34),
+                  color: theme.colorScheme.surface,
+                ),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.phone_iphone,
+                        size: isMobile ? 80 : 120,
+                        color: theme.colorScheme.primary,
+                      ),
+                      const SizedBox(height: 24),
+                      Text(
+                        'Visual Preview',
+                        style: theme.textTheme.titleLarge?.copyWith(
+                          color: theme.colorScheme.onSurface.withValues(
+                            alpha: 0.6,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
             ),
           ),
+          /*SizedBox(height: isMobile ? 40 : 60),
+          Container(
+            constraints: const BoxConstraints(maxWidth: 700),
+            child: Text(
+              'I am rethinking the digital tools I use daily.\nMaking something beautiful and useful.',
+              textAlign: TextAlign.center,
+              style: theme.textTheme.titleLarge?.copyWith(
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                height: 1.8,
+                fontSize: isMobile ? 16 : 20,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+          ),*/
         ],
       ),
     );
   }
 }
 
-class FeatureSection extends StatelessWidget {
-  const FeatureSection({super.key});
+class PhilosophyAndPrinciplesSection extends StatelessWidget {
+  const PhilosophyAndPrinciplesSection({super.key});
 
-  static final features = [
+  static final principles = [
     (
-      'Habit canvases',
-      'Tile-based grids visualize streaks, resets, and ritual intensity.',
-      Icons.grid_view_rounded,
+      'My Device',
+      'Native, respectful tools that work the way you expect.',
+      Icons.phone_iphone_outlined,
     ),
     (
-      'Multi-completions',
-      'Track micro wins throughout the day with friction-less taps.',
-      Icons.touch_app,
+      'My Data',
+      'Your data stays on your device. No cloud, no accounts, no selling.',
+      Icons.storage_outlined,
     ),
     (
-      'Widgets everywhere',
-      'Home-screen, desktop, and watch widgets stay perfectly synced.',
-      Icons.widgets_outlined,
-    ),
-    (
-      'Ritual reminders',
-      'Ambient nudges blend neon glow with calm haptics to respect focus.',
-      Icons.notifications_active_outlined,
+      'My Privacy',
+      'Privacy by default. No analytics, no tracking, no collection.',
+      Icons.lock_outline,
     ),
   ];
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    final crossAxisCount = width < 700
-        ? 1
-        : width < 1100
-        ? 2
-        : 4;
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 48),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Tools that feel cinematic',
-            style: Theme.of(
-              context,
-            ).textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.w700),
-          ),
-          const SizedBox(height: 12),
-          Text(
-            'Material 3 bones, evius neon skin. Everything is intentionally over-designed.',
-            style: Theme.of(context).textTheme.bodyLarge,
-          ),
-          const SizedBox(height: 32),
-          GridView.builder(
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: features.length,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: crossAxisCount,
-              mainAxisExtent: 200,
-              crossAxisSpacing: 24,
-              mainAxisSpacing: 24,
-            ),
-            itemBuilder: (context, index) {
-              final feature = features[index];
-              return _FeatureCard(
-                title: feature.$1,
-                subtitle: feature.$2,
-                icon: feature.$3,
-              );
-            },
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _FeatureCard extends StatelessWidget {
-  const _FeatureCard({
-    required this.title,
-    required this.subtitle,
-    required this.icon,
-  });
-
-  final String title;
-  final String subtitle;
-  final IconData icon;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(24),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(24),
-        gradient: const LinearGradient(
-          colors: [Color(0xFF0B0D16), Color(0xFF11182A)],
-        ),
-        border: Border.all(color: Colors.white12),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(icon, color: const Color(0xFFFFE169), size: 32),
-          const Spacer(),
-          Text(
-            title,
-            style: Theme.of(
-              context,
-            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w600),
-          ),
-          const SizedBox(height: 8),
-          Text(subtitle),
-        ],
-      ),
-    );
-  }
-}
-
-class CraftSection extends StatelessWidget {
-  const CraftSection({super.key});
-
-  @override
-  Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final width = MediaQuery.of(context).size.width;
+    final isMobile = width < 600;
+    final isTablet = width < 900;
+
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 48),
-      child: Container(
-        padding: const EdgeInsets.all(40),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(32),
-          border: Border.all(color: Colors.white10),
-          gradient: const LinearGradient(
-            colors: [Color(0x33FFE169), Color(0x330B0D16)],
-          ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'What is evius.life?',
-              style: theme.textTheme.headlineLarge?.copyWith(
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              'A studio by Lokesh Uupputri for people obsessed with intentional living. '
-              'He engineers small, opinionated tools that turn routine tracking into sensory experiences. '
-              'Utility, animation, and craft sit at the same table—because beauty isn’t optional.',
-              style: theme.textTheme.titleMedium?.copyWith(height: 1.7),
-            ),
-            const SizedBox(height: 24),
-            Wrap(
-              spacing: 24,
-              runSpacing: 16,
-              children: const [
-                _Pill(text: 'Beautiful defaults'),
-                _Pill(text: 'Automation-minded'),
-                _Pill(text: 'Multi-platform ready'),
-                _Pill(text: 'Design-led development'),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _Pill extends StatelessWidget {
-  const _Pill({required this.text});
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Chip(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      label: Text(text),
-      backgroundColor: Colors.white12,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(999)),
-    );
-  }
-}
-
-class ShowcaseSection extends StatelessWidget {
-  const ShowcaseSection({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final isCompact = MediaQuery.of(context).size.width < 900;
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 48),
+      padding: EdgeInsets.symmetric(horizontal: isMobile ? 24 : 48),
       child: Flex(
-        direction: isCompact ? Axis.vertical : Axis.horizontal,
-        crossAxisAlignment: isCompact
-            ? CrossAxisAlignment.start
-            : CrossAxisAlignment.center,
+        direction: isMobile ? Axis.vertical : Axis.horizontal,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Flexible(
-            fit: isCompact ? FlexFit.loose : FlexFit.tight,
+            flex: 1,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Daily OS crafted with neon calm.',
-                  style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                  'Digital tools have become soulless.',
+                  style: theme.textTheme.headlineLarge?.copyWith(
                     fontWeight: FontWeight.w700,
+                    fontSize: isMobile
+                        ? 32
+                        : isTablet
+                        ? 40
+                        : 48,
+                    color: theme.colorScheme.onSurface,
                   ),
                 ),
-                const SizedBox(height: 16),
+                SizedBox(height: isMobile ? 24 : 32),
                 Text(
-                  'Placeholder timeline: widgets, streak intelligence, cross-device syncing. '
-                  'Each release ships with cinematic motion and studio-grade iconography.',
-                ),
-                const SizedBox(height: 24),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    _TimelineTile(label: 'Habits OS • concept deck 01'),
-                    _TimelineTile(label: 'Flowboard • whitepaper placeholder'),
-                    _TimelineTile(label: 'Mood loops • sonic exploration'),
-                  ],
+                  'I build tools that respect your attention. Every pixel is intentional. '
+                  'This is slow, deliberate work. Built with care, not speed.',
+                  style: theme.textTheme.titleMedium?.copyWith(
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                    height: 1.8,
+                    fontSize: isMobile ? 16 : 18,
+                  ),
                 ),
               ],
             ),
           ),
-          const SizedBox(width: 48, height: 48),
+          SizedBox(width: isMobile ? 0 : 60, height: isMobile ? 40 : 0),
           Flexible(
-            fit: isCompact ? FlexFit.loose : FlexFit.tight,
-            child: AspectRatio(
-              aspectRatio: 16 / 9,
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(24),
-                  border: Border.all(color: Colors.white10),
-                  gradient: const LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [Color(0x22101830), Color(0x3356F0FF)],
-                  ),
-                ),
-                child: const Center(child: Text('Video / gallery placeholder')),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _TimelineTile extends StatelessWidget {
-  const _TimelineTile({required this.label});
-
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      contentPadding: EdgeInsets.zero,
-      dense: true,
-      leading: const Icon(Icons.auto_graph, color: Color(0xFF56F0FF)),
-      title: Text(label),
-      subtitle: const Text('Launching soon • placeholder copy'),
-    );
-  }
-}
-
-class PraiseSection extends StatelessWidget {
-  const PraiseSection({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 48),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Future praise from the community',
-            style: Theme.of(
-              context,
-            ).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.w700),
-          ),
-          const SizedBox(height: 24),
-          Wrap(
-            spacing: 24,
-            runSpacing: 24,
-            children: List.generate(
-              3,
-              (index) => SizedBox(
-                width: 320,
-                child: Card(
-                  color: const Color(0xFF0B0D16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(24),
-                    side: const BorderSide(color: Colors.white12),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(24),
-                    child: Column(
+            flex: 1,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ...principles.asMap().entries.map((entry) {
+                  final index = entry.key;
+                  final principle = entry.value;
+                  final useSecondary = index == 1; // Middle item uses secondary
+                  return Padding(
+                    padding: EdgeInsets.only(
+                      bottom: index < principles.length - 1
+                          ? (isMobile ? 16 : 24)
+                          : 0,
+                    ),
+                    child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Icon(Icons.format_quote, color: Colors.white54),
-                        const SizedBox(height: 16),
-                        Text(
-                          '“Placeholder testimonial about how neon interfaces made habits addictive.”',
-                          style: Theme.of(context).textTheme.bodyLarge,
+                        Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            color: useSecondary
+                                ? theme.colorScheme.secondaryContainer
+                                : theme.colorScheme.primaryContainer,
+                          ),
+                          child: Icon(
+                            principle.$3,
+                            color: useSecondary
+                                ? theme.colorScheme.onSecondaryContainer
+                                : theme.colorScheme.onPrimaryContainer,
+                            size: 24,
+                          ),
                         ),
-                        const SizedBox(height: 16),
-                        const Text('Beta voice • Role pending'),
+                        SizedBox(width: isMobile ? 16 : 20),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                principle.$1,
+                                style: theme.textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: isMobile ? 18 : 20,
+                                  color: theme.colorScheme.onSurface,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                principle.$2,
+                                style: theme.textTheme.bodyMedium?.copyWith(
+                                  color: theme.colorScheme.onSurface.withValues(
+                                    alpha: 0.7,
+                                  ),
+                                  height: 1.5,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
-                  ),
-                ),
-              ),
+                  );
+                }).toList(),
+              ],
             ),
           ),
         ],
@@ -642,97 +415,149 @@ class PraiseSection extends StatelessWidget {
   }
 }
 
-class CallToActionSection extends StatelessWidget {
-  const CallToActionSection({super.key});
+class WorkSection extends StatelessWidget {
+  const WorkSection({super.key});
+
+  static final projects = [
+    (
+      'Mood Tracker',
+      'Track your emotional landscape with intention. No judgment, just awareness.',
+      Icons.favorite_outline,
+      'In Progress',
+    ),
+    (
+      'Memory Surfer',
+      'Navigate your memories with ease. Your past, beautifully organized.',
+      Icons.auto_stories_outlined,
+      'Concept',
+    ),
+    (
+      'Checklists',
+      'Simple, focused task management. No complexity, just clarity.',
+      Icons.checklist_outlined,
+      'Coming Soon',
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final width = MediaQuery.of(context).size.width;
+    final isMobile = width < 600;
+    final isTablet = width < 900;
+    final crossAxisCount = isMobile
+        ? 1
+        : isTablet
+        ? 2
+        : 3;
+
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 48),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 40),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(32),
-          gradient: const LinearGradient(
-            colors: [Color(0xFFFFE169), Color(0xFF56F0FF)],
+      padding: EdgeInsets.symmetric(horizontal: isMobile ? 24 : 48),
+      child: Column(
+        children: [
+          Text(
+            'What I\'m Building',
+            style: theme.textTheme.headlineLarge?.copyWith(
+              fontWeight: FontWeight.w700,
+              fontSize: isMobile
+                  ? 32
+                  : isTablet
+                  ? 40
+                  : 48,
+              color: theme.colorScheme.onSurface,
+            ),
+            textAlign: TextAlign.center,
           ),
-          boxShadow: const [
-            BoxShadow(
-              color: Color(0x4456F0FF),
-              blurRadius: 40,
-              offset: Offset(0, 20),
+          SizedBox(height: isMobile ? 16 : 24),
+          Text(
+            'Tools I want to use. Built slowly, with care.',
+            textAlign: TextAlign.center,
+            style: theme.textTheme.titleMedium?.copyWith(
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
             ),
-          ],
-        ),
-        child: Flex(
-          direction: MediaQuery.of(context).size.width < 900
-              ? Axis.vertical
-              : Axis.horizontal,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Flexible(
-              fit: FlexFit.loose,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Join the build log.',
-                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  const Text(
-                    'Drop your email to get early invites, behind-the-scenes drops, and Figma files.',
-                    style: TextStyle(color: Colors.black87),
-                  ),
-                ],
-              ),
+          ),
+          SizedBox(height: isMobile ? 40 : 60),
+          GridView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: projects.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: crossAxisCount,
+              mainAxisExtent: isMobile ? 400 : 480,
+              crossAxisSpacing: isMobile ? 24 : 32,
+              mainAxisSpacing: isMobile ? 24 : 32,
             ),
-            const SizedBox(width: 24, height: 24),
-            Flexible(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: 'you@placeholder.dev',
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          borderSide: BorderSide.none,
-                        ),
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 20,
-                          vertical: 18,
+            itemBuilder: (context, index) {
+              final project = projects[index];
+              final useSecondary = index == 1; // Middle project uses secondary
+              return Card(
+                elevation: 0,
+                color: theme.colorScheme.surfaceContainer,
+                child: Padding(
+                  padding: EdgeInsets.all(isMobile ? 24 : 32),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Visual mockup
+                      Expanded(
+                        child: Card(
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          color: theme.colorScheme.surfaceContainerHighest,
+                          child: Center(
+                            child: Icon(
+                              project.$3,
+                              size: isMobile ? 60 : 80,
+                              color: useSecondary
+                                  ? theme.colorScheme.secondary
+                                  : theme.colorScheme.primary,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 24,
-                        vertical: 18,
+                      SizedBox(height: isMobile ? 20 : 24),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            project.$1,
+                            style: theme.textTheme.titleLarge?.copyWith(
+                              fontWeight: FontWeight.w600,
+                              color: theme.colorScheme.onSurface,
+                            ),
+                          ),
+                          Chip(
+                            label: Text(project.$4),
+                            backgroundColor:
+                                theme.colorScheme.surfaceContainerHighest,
+                            side: BorderSide(color: theme.colorScheme.outline),
+                            labelStyle: theme.textTheme.bodySmall?.copyWith(
+                              color: theme.colorScheme.onSurface.withValues(
+                                alpha: 0.7,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18),
+                      const SizedBox(height: 12),
+                      Text(
+                        project.$2,
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: theme.colorScheme.onSurface.withValues(
+                            alpha: 0.7,
+                          ),
+                          height: 1.6,
+                        ),
                       ),
-                    ),
-                    child: const Text('Notify me'),
+                    ],
                   ),
-                ],
-              ),
-            ),
-          ],
-        ),
+                ),
+              );
+            },
+          ),
+        ],
       ),
     );
   }
@@ -743,21 +568,122 @@ class Footer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isMobile = MediaQuery.of(context).size.width < 600;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 48),
+      padding: EdgeInsets.symmetric(horizontal: isMobile ? 24 : 48),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Divider(color: Colors.white12),
-          const SizedBox(height: 16),
+          Divider(color: theme.colorScheme.outline, thickness: 1),
+          SizedBox(height: isMobile ? 48 : 64),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Text('© evius.life — crafted by Lokesh Uupputri'),
-              Text('Privacy • Terms • Contact placeholder'),
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.favorite,
+                size: 16,
+                color: theme.colorScheme.primary.withValues(alpha: 0.8),
+              ),
+              const SizedBox(width: 8),
+              Text(
+                'Made with care by ',
+                style: theme.textTheme.bodyLarge?.copyWith(
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+                  letterSpacing: 0.5,
+                ),
+              ),
+              Text(
+                'Lokesh Upputri',
+                style: theme.textTheme.bodyLarge?.copyWith(
+                  color: theme.colorScheme.primary,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 0.5,
+                ),
+              ),
             ],
           ),
+          SizedBox(height: isMobile ? 32 : 40),
+          Wrap(
+            spacing: isMobile ? 20 : 32,
+            runSpacing: isMobile ? 16 : 20,
+            alignment: WrapAlignment.center,
+            children: [
+              _FooterLink('Contact', Icons.mail_outline),
+              _FooterLink('Privacy', Icons.lock_outline),
+              _FooterLink('Notes', Icons.article_outlined),
+            ],
+          ),
+          SizedBox(height: isMobile ? 48 : 64),
         ],
+      ),
+    );
+  }
+}
+
+class _FooterLink extends StatefulWidget {
+  const _FooterLink(this.label, this.icon);
+
+  final String label;
+  final IconData icon;
+
+  @override
+  State<_FooterLink> createState() => _FooterLinkState();
+}
+
+class _FooterLinkState extends State<_FooterLink> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: _isHovered
+              ? theme.colorScheme.surfaceContainerHighest
+              : Colors.transparent,
+          border: Border.all(
+            color: _isHovered
+                ? (widget.label == 'Privacy'
+                      ? theme.colorScheme.secondary.withValues(alpha: 0.3)
+                      : theme.colorScheme.primary.withValues(alpha: 0.3))
+                : Colors.transparent,
+            width: 1,
+          ),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              widget.icon,
+              size: 16,
+              color: _isHovered
+                  ? (widget.label == 'Privacy'
+                        ? theme.colorScheme.secondary
+                        : theme.colorScheme.primary)
+                  : theme.colorScheme.onSurface.withValues(alpha: 0.6),
+            ),
+            const SizedBox(width: 8),
+            Text(
+              widget.label,
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: _isHovered
+                    ? (widget.label == 'Privacy'
+                          ? theme.colorScheme.secondary
+                          : theme.colorScheme.primary)
+                    : theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                fontWeight: _isHovered ? FontWeight.w500 : FontWeight.w400,
+                letterSpacing: 0.3,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -770,10 +696,13 @@ class NeonGradientBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return CustomPaint(
-      painter: _HaloPainter(),
+      painter: _HaloPainter(theme),
       child: DecoratedBox(
-        decoration: const BoxDecoration(color: Color(0xFF05050A)),
+        decoration: BoxDecoration(
+          color: theme.colorScheme.surfaceContainerLowest,
+        ),
         child: child,
       ),
     );
@@ -781,15 +710,19 @@ class NeonGradientBackground extends StatelessWidget {
 }
 
 class _HaloPainter extends CustomPainter {
+  const _HaloPainter(this.theme);
+
+  final ThemeData theme;
+
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
       ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 80);
 
-    paint.color = const Color(0x33FFE169);
+    paint.color = theme.colorScheme.primary.withValues(alpha: 0.2);
     canvas.drawCircle(Offset(size.width * 0.25, size.height * 0.3), 220, paint);
 
-    paint.color = const Color(0x334DE1FF);
+    paint.color = theme.colorScheme.secondary.withValues(alpha: 0.2);
     canvas.drawCircle(Offset(size.width * 0.75, size.height * 0.5), 260, paint);
   }
 
