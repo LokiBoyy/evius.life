@@ -15,12 +15,12 @@ class PhilosophyAndPrinciplesSection extends StatelessWidget {
     ),
     (
       'My Data',
-      'Your data stays on your device. No cloud, no accounts, no selling.',
+      'Your data stays on your device. No cloud, no accounts, no harvesting.',
       Icons.storage_outlined,
     ),
     (
       'My Privacy',
-      'Privacy by default. No analytics, no tracking, no collection.',
+      'Privacy by default. No monitor, no tracking, no collection.',
       Icons.lock_outline,
     ),
   ];
