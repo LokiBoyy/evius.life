@@ -158,14 +158,14 @@ class _ContactPageState extends State<ContactPage> {
                       value: 'Transvaalstraße 1. 13361 Berlin, Germany',
                       theme: theme,
                     ),
-
+                    SizedBox(height: isMobile ? 16 : 20),
                     _ContactInfoItem(
                       label: 'USt-IdNr',
                       value: 'Coming Soon',
                       theme: theme,
                     ),
 
-                    SizedBox(height: isMobile ? 16 : 20),
+                    SizedBox(height: isMobile ? 32 : 48),
                   ],
                 ),
               ),
