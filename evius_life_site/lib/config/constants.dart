@@ -5,6 +5,7 @@ class AppConstants {
   // Colors
   static const neonAmber = 0xFFFFE169;
   static const electricCyan = 0xFF56F0FF;
+  static const lifeTrackerGreen = 0xFF4ADE80;
   static const darkSurface = 0xFF0B0D16;
   static const darkBackground = 0xFF05050A;
 

@@ -8,6 +8,7 @@ class AppTheme {
 
   static const Color neonAmber = Color(AppConstants.neonAmber);
   static const Color electricCyan = Color(AppConstants.electricCyan);
+  static const Color lifeTrackerGreen = Color(AppConstants.lifeTrackerGreen);
   static const Color darkSurface = Color(AppConstants.darkSurface);
   static const Color darkBackground = Color(AppConstants.darkBackground);
 
@@ -85,10 +86,10 @@ class AppTheme {
       onSecondary: Colors.black,
       secondaryContainer: electricCyan.withValues(alpha: 0.2),
       onSecondaryContainer: electricCyan,
-      tertiary: electricCyan,
+      tertiary: lifeTrackerGreen,
       onTertiary: Colors.black,
-      tertiaryContainer: electricCyan.withValues(alpha: 0.2),
-      onTertiaryContainer: electricCyan,
+      tertiaryContainer: lifeTrackerGreen.withValues(alpha: 0.2),
+      onTertiaryContainer: lifeTrackerGreen,
       surface: darkSurface,
       onSurface: Colors.white,
       surfaceContainerHighest: const Color(0xFF1A1D2A),

@@ -50,37 +50,7 @@ class PhilosophyAndPrinciplesSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'There is a serene pleasure in cultivating one\'s own life',
-          style: theme.textTheme.headlineLarge?.copyWith(
-            fontWeight: FontWeight.w700,
-            fontSize: Responsive.value(
-              context: context,
-              mobile: 32.0,
-              tablet: 42.0,
-              desktop: 48.0,
-            ),
-            color: theme.colorScheme.onSurface,
-            height: 1.2,
-            letterSpacing: -0.3,
-            fontStyle: FontStyle.italic,
-          ),
-        ).animate().fadeIn(duration: 500.ms, delay: 100.ms),
-        SizedBox(height: 16),
-        Text(
-          'and that includes our digital lives.',
-          style: theme.textTheme.bodyLarge?.copyWith(
-            color: theme.colorScheme.onSurface.withValues(alpha: 0.8),
-            height: 1.6,
-            fontSize: Responsive.value(
-              context: context,
-              mobile: 16.0,
-              tablet: 18.0,
-              desktop: 20.0,
-            ),
-            fontStyle: FontStyle.italic,
-          ),
-        ).animate().fadeIn(duration: 500.ms, delay: 200.ms),
+        _buildQuoteBlock(context, theme, isMobile),
         SizedBox(height: isMobile ? 32 : 40),
         Text(
           'My goal is:',
@@ -110,6 +80,65 @@ class PhilosophyAndPrinciplesSection extends StatelessWidget {
           500.ms,
         ),
       ],
+    );
+  }
+
+  Widget _buildQuoteBlock(
+    BuildContext context,
+    ThemeData theme,
+    bool isMobile,
+  ) {
+    return Container(
+      padding: EdgeInsets.only(
+        left: isMobile ? 20 : 28,
+        top: 4,
+        bottom: 4,
+      ),
+      decoration: BoxDecoration(
+        border: Border(
+          left: BorderSide(
+            color: theme.colorScheme.primary.withValues(alpha: 0.4),
+            width: 4,
+          ),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'There is a serene pleasure in cultivating one\'s own life \n — slowly, deliberately, and with intention.',
+            style: theme.textTheme.headlineLarge?.copyWith(
+              fontWeight: FontWeight.w700,
+              fontSize: Responsive.value(
+                context: context,
+                mobile: 32.0,
+                tablet: 42.0,
+                desktop: 48.0,
+              ),
+              color: theme.colorScheme.onSurface,
+              height: 1.25,
+              letterSpacing: -0.3,
+              fontStyle: FontStyle.italic,
+            ),
+          ).animate().fadeIn(duration: 500.ms, delay: 100.ms),
+          SizedBox(height: 10),
+          Text(
+            'and that includes our digital lives.',
+            style: theme.textTheme.bodyLarge?.copyWith(
+              color: theme.colorScheme.tertiary,
+              height: 1.5,
+              fontSize: Responsive.value(
+                context: context,
+                mobile: 18.0,
+                tablet: 20.0,
+                desktop: 22.0,
+              ),
+              fontStyle: FontStyle.italic,
+              fontWeight: FontWeight.w400,
+            ),
+          ).animate().fadeIn(duration: 500.ms, delay: 200.ms),
+        ],
+      ),
     );
   }
 
