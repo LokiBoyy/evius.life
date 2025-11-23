@@ -35,7 +35,7 @@ class PhilosophyAndPrinciplesSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildPhilosophySection(context, theme, isMobile),
-          SizedBox(height: isMobile ? 48 : 64),
+          SizedBox(height: isMobile ? 64 : 80),
           _buildPrinciplesSection(context, theme, isMobile),
         ],
       ),
@@ -51,7 +51,7 @@ class PhilosophyAndPrinciplesSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildQuoteBlock(context, theme, isMobile),
-        SizedBox(height: isMobile ? 32 : 40),
+        SizedBox(height: isMobile ? 48 : 56),
         Text(
           'My goal is:',
           style: theme.textTheme.titleMedium?.copyWith(
@@ -65,7 +65,7 @@ class PhilosophyAndPrinciplesSection extends StatelessWidget {
             ),
           ),
         ).animate().fadeIn(duration: 500.ms, delay: 300.ms),
-        SizedBox(height: 16),
+        SizedBox(height: isMobile ? 24 : 20),
         _buildGoalText(
           context,
           theme,

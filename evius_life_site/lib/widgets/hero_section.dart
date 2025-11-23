@@ -278,7 +278,7 @@ class _RotatingLifeTextState extends State<_RotatingLifeText> {
   // Padding constants
   static const _paddingLeftMobile = 16.0;
   static const _paddingLeftDesktop = 24.0;
-  static const _paddingRightMobile = 48.0;
+  static const _paddingRightMobile = 16.0;
   static const _paddingRightDesktop = 80.0;
   static const _paddingVerticalMobile = 8.0;
   static const _paddingVerticalDesktop = 16.0;

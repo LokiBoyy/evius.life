@@ -44,27 +44,27 @@ class _HomePageState extends State<HomePage> {
                   padding: Responsive.padding(context),
                   child: const Header(),
                 ),
-                SizedBox(height: isMobile ? 60 : AppConstants.spacingMassive),
+                SizedBox(height: isMobile ? 80 : AppConstants.spacingMassive),
                 const HeroSection(),
                 SizedBox(
                   height: isMobile
-                      ? AppConstants.spacingHuge
+                      ? AppConstants.spacingMassive
                       : AppConstants.spacingEnormous,
                 ),
                 const PhilosophyAndPrinciplesSection(),
                 SizedBox(
                   height: isMobile
-                      ? AppConstants.spacingHuge
+                      ? AppConstants.spacingMassive
                       : AppConstants.spacingEnormous,
                 ),
                 const WorkSection(),
                 SizedBox(
                   height: isMobile
-                      ? AppConstants.spacingHuge
+                      ? AppConstants.spacingMassive
                       : AppConstants.spacingEnormous,
                 ),
                 const Footer(),
-                SizedBox(height: isMobile ? AppConstants.spacingXL : 60),
+                SizedBox(height: isMobile ? AppConstants.spacingXXXL : 60),
               ],
             ),
           ),

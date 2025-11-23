@@ -9,19 +9,19 @@ class WorkSection extends StatelessWidget {
 
   static final projects = [
     (
-      'Mood Tracker',
+      'Agape - Mood Tracker',
       'Track your emotional landscape with intention. No judgment, just awareness.',
       Icons.favorite_outline,
       'In Progress',
     ),
     (
-      'Memory Surfer',
+      'Anamnesis - Memories',
       'Navigate your memories with ease. Your past, beautifully organized.',
       Icons.auto_stories_outlined,
       'Concept',
     ),
     (
-      'Checklists',
+      'Axia - Checklists',
       'Simple, focused task management. No complexity, just clarity.',
       Icons.checklist_outlined,
       'Coming Soon',
@@ -107,6 +107,7 @@ class WorkSection extends StatelessWidget {
     return Card(
       elevation: 0,
       color: theme.colorScheme.surfaceContainer,
+      clipBehavior: Clip.none,
       child: Padding(
         padding: EdgeInsets.all(
           isMobile ? AppConstants.spacingMD : AppConstants.spacingLG,
@@ -140,7 +141,6 @@ class WorkSection extends StatelessWidget {
                   isMobile ? AppConstants.spacingLG : AppConstants.spacingMD,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
@@ -155,8 +155,19 @@ class WorkSection extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: AppConstants.spacingSM),
-                Chip(
-                  label: Text(
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppConstants.spacingSM,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.surfaceContainerHighest,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(
+                      color: theme.colorScheme.outline,
+                    ),
+                  ),
+                  child: Text(
                     project.$4,
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: theme.colorScheme.onSurface,
@@ -164,12 +175,6 @@ class WorkSection extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppConstants.spacingSM,
-                    vertical: 6,
-                  ),
-                  backgroundColor: theme.colorScheme.surfaceContainerHighest,
-                  side: BorderSide(color: theme.colorScheme.outline),
                 ),
               ],
             ),
