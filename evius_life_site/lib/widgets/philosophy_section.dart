@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../utils/responsive.dart';
-import '../config/constants.dart';
 
 /// Philosophy and principles section
 class PhilosophyAndPrinciplesSection extends StatelessWidget {
@@ -10,7 +9,7 @@ class PhilosophyAndPrinciplesSection extends StatelessWidget {
   static final principles = [
     (
       'My Device',
-      'Native, respectful tools that work the way you expect.',
+      'Native, respectful tools that work the way you expect without the Internet.',
       Icons.phone_iphone_outlined,
     ),
     (
@@ -32,156 +31,210 @@ class PhilosophyAndPrinciplesSection extends StatelessWidget {
 
     return Padding(
       padding: Responsive.padding(context),
-      child: Flex(
-        direction: isMobile ? Axis.vertical : Axis.horizontal,
-        mainAxisSize: MainAxisSize.min,
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Flexible(
-            flex: 1,
-            child: _buildPhilosophyText(context, theme, isMobile),
-          ),
-          SizedBox(
-            width: isMobile ? 0 : 60,
-            height: isMobile ? AppConstants.spacingXL : 0,
-          ),
-          Flexible(
-            flex: 1,
-            child: _buildPrinciplesList(context, theme, isMobile),
-          ),
+          _buildPhilosophySection(context, theme, isMobile),
+          SizedBox(height: isMobile ? 48 : 64),
+          _buildPrinciplesSection(context, theme, isMobile),
         ],
       ),
     );
   }
 
-  Widget _buildPhilosophyText(
+  Widget _buildPhilosophySection(
     BuildContext context,
     ThemeData theme,
     bool isMobile,
   ) {
     return Column(
-      mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Digital tools have become soulless.',
+          'There is a serene pleasure in cultivating one\'s own life',
           style: theme.textTheme.headlineLarge?.copyWith(
             fontWeight: FontWeight.w700,
             fontSize: Responsive.value(
               context: context,
               mobile: 32.0,
-              tablet: 40.0,
+              tablet: 42.0,
               desktop: 48.0,
             ),
             color: theme.colorScheme.onSurface,
+            height: 1.2,
+            letterSpacing: -0.3,
+            fontStyle: FontStyle.italic,
           ),
-        )
-            .animate()
-            .fadeIn(duration: 600.ms, delay: 200.ms)
-            .slideX(begin: -0.2, end: 0, duration: 600.ms, delay: 200.ms),
-        SizedBox(
-          height: isMobile ? AppConstants.spacingMD : AppConstants.spacingLG,
-        ),
+        ).animate().fadeIn(duration: 500.ms, delay: 100.ms),
+        SizedBox(height: 16),
         Text(
-          'I build tools that respect your attention. Every pixel is intentional. '
-          'This is slow, deliberate work. Built with care, not speed.',
-          style: theme.textTheme.titleMedium?.copyWith(
-            color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
-            height: 1.8,
-            fontSize: isMobile ? 16 : 18,
+          'and that includes our digital lives.',
+          style: theme.textTheme.bodyLarge?.copyWith(
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.8),
+            height: 1.6,
+            fontSize: Responsive.value(
+              context: context,
+              mobile: 16.0,
+              tablet: 18.0,
+              desktop: 20.0,
+            ),
+            fontStyle: FontStyle.italic,
           ),
-        )
-            .animate()
-            .fadeIn(duration: 600.ms, delay: 400.ms)
-            .slideX(begin: -0.2, end: 0, duration: 600.ms, delay: 400.ms),
+        ).animate().fadeIn(duration: 500.ms, delay: 200.ms),
+        SizedBox(height: isMobile ? 32 : 40),
+        Text(
+          'My goal is:',
+          style: theme.textTheme.titleMedium?.copyWith(
+            color: theme.colorScheme.onSurface,
+            fontWeight: FontWeight.w600,
+            fontSize: Responsive.value(
+              context: context,
+              mobile: 16.0,
+              tablet: 18.0,
+              desktop: 20.0,
+            ),
+          ),
+        ).animate().fadeIn(duration: 500.ms, delay: 300.ms),
+        SizedBox(height: 16),
+        _buildGoalText(
+          context,
+          theme,
+          'To create digital tools that seamlessly weave into and honor the quiet moments of our days.',
+          400.ms,
+        ),
+        SizedBox(height: 12),
+        _buildGoalText(
+          context,
+          theme,
+          'To design not for distraction, but for presence, meaning, and mindful growth.',
+          500.ms,
+        ),
       ],
     );
   }
 
-  Widget _buildPrinciplesList(
+  Widget _buildGoalText(
+    BuildContext context,
+    ThemeData theme,
+    String text,
+    Duration delay,
+  ) {
+    return Text(
+      text,
+      style: theme.textTheme.bodyLarge?.copyWith(
+        color: theme.colorScheme.onSurface.withValues(alpha: 0.85),
+        height: 1.7,
+        fontSize: Responsive.value(
+          context: context,
+          mobile: 16.0,
+          tablet: 18.0,
+          desktop: 20.0,
+        ),
+        fontStyle: FontStyle.italic,
+      ),
+    ).animate().fadeIn(duration: 500.ms, delay: delay);
+  }
+
+  Widget _buildPrinciplesSection(
     BuildContext context,
     ThemeData theme,
     bool isMobile,
   ) {
     return Column(
-      mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ...principles.asMap().entries.map((entry) {
           final index = entry.key;
           final principle = entry.value;
-          final useSecondary = index == 1; // Middle item uses secondary
+          final useSecondary = index == 1;
+
           return Padding(
             padding: EdgeInsets.only(
-              bottom: index < principles.length - 1
-                  ? (isMobile ? AppConstants.spacingSM : AppConstants.spacingMD)
-                  : 0,
+              bottom: index < principles.length - 1 ? 32 : 0,
             ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(AppConstants.spacingSM),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                      AppConstants.spacingSM,
-                    ),
-                    color: useSecondary
-                        ? theme.colorScheme.secondaryContainer
-                        : theme.colorScheme.primaryContainer,
-                  ),
-                  child: Icon(
-                    principle.$3,
-                    color: useSecondary
-                        ? theme.colorScheme.onSecondaryContainer
-                        : theme.colorScheme.onPrimaryContainer,
-                    size: AppConstants.spacingMD,
-                  ),
-                ),
-                SizedBox(
-                  width: isMobile
-                      ? AppConstants.spacingSM
-                      : AppConstants.spacingLG,
-                ),
-                Expanded(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        principle.$1,
-                        style: theme.textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.w600,
-                          fontSize: isMobile ? 18 : 20,
-                          color: theme.colorScheme.onSurface,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        principle.$2,
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          color: theme.colorScheme.onSurface.withValues(
-                            alpha: 0.7,
-                          ),
-                          height: 1.5,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+            child: _buildPrincipleItem(
+              context,
+              theme,
+              principle,
+              useSecondary,
+              index,
             ),
-          )
-              .animate()
-              .fadeIn(duration: 500.ms, delay: (600 + (entry.key * 150)).ms)
-              .slideX(
-                begin: 0.2,
-                end: 0,
-                duration: 500.ms,
-                delay: (600 + (entry.key * 150)).ms,
-              );
+          );
         }).toList(),
       ],
     );
+  }
+
+  Widget _buildPrincipleItem(
+    BuildContext context,
+    ThemeData theme,
+    (String, String, IconData) principle,
+    bool useSecondary,
+    int index,
+  ) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          width: 48,
+          height: 48,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: useSecondary
+                ? theme.colorScheme.secondaryContainer
+                : theme.colorScheme.primaryContainer,
+          ),
+          child: Icon(
+            principle.$3,
+            color: useSecondary
+                ? theme.colorScheme.onSecondaryContainer
+                : theme.colorScheme.onPrimaryContainer,
+            size: 24,
+          ),
+        ),
+        SizedBox(width: 16),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                principle.$1,
+                style: theme.textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  fontSize: Responsive.value(
+                    context: context,
+                    mobile: 18.0,
+                    tablet: 20.0,
+                    desktop: 22.0,
+                  ),
+                  color: theme.colorScheme.onSurface,
+                  height: 1.3,
+                ),
+              ),
+              SizedBox(height: 8),
+              Text(
+                principle.$2,
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.8),
+                  height: 1.6,
+                  fontSize: Responsive.value(
+                    context: context,
+                    mobile: 15.0,
+                    tablet: 16.0,
+                    desktop: 17.0,
+                  ),
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ).animate().fadeIn(duration: 500.ms, delay: (600 + index * 100).ms).slideX(
+          begin: 0.1,
+          end: 0,
+          duration: 500.ms,
+          delay: (600 + index * 100).ms,
+        );
   }
 }
