@@ -37,53 +37,78 @@ class HeroSection extends StatelessWidget {
                   padding: EdgeInsets.only(
                     left: isMobile ? 8 : 180,
                   ),
-                  child: RichText(
-                    textAlign: TextAlign.left,
-                    text: TextSpan(
-                      style: theme.textTheme.displayLarge?.copyWith(
-                        fontSize: Responsive.value(
-                          context: context,
-                          mobile: 36.0,
-                          tablet: 56.0,
-                          desktop: 80.0,
-                        ),
-                        fontWeight: FontWeight.bold,
-                        height: 1.2,
-                        letterSpacing: 1,
-                        color: theme.colorScheme.onSurface,
-                      ),
-                      children: [
-                        TextSpan(
-                          text: 'Make it.',
-                          style: TextStyle(
-                            fontStyle: FontStyle.italic,
-                            fontWeight: FontWeight.w300,
-                            fontSize: Responsive.value(
-                              context: context,
-                              mobile: 36.0 * 0.7,
-                              tablet: 56.0 * 0.7,
-                              desktop: 80.0 * 0.7,
-                            ),
-                            color: theme.colorScheme.onSurface
-                                .withValues(alpha: 0.6),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '"Life" is short ... MAKE IT.',
+                        style: theme.textTheme.displayLarge?.copyWith(
+                          fontStyle: FontStyle.italic,
+                          fontWeight: FontWeight.w300,
+                          fontSize: Responsive.value(
+                            context: context,
+                            mobile: 36.0 * 0.5,
+                            tablet: 56.0 * 0.5,
+                            desktop: 80.0 * 0.5,
                           ),
+                          color: theme.colorScheme.onSurface
+                              .withValues(alpha: 0.6),
                         ),
-                        const TextSpan(text: '\n'),
-                        TextSpan(
-                          text: 'Mindful.',
+                      ),
+                      SizedBox(
+                        height: Responsive.value(
+                          context: context,
+                          mobile: 24.0,
+                          tablet: 16.0,
+                          desktop: 24.0,
                         ),
-                        const TextSpan(text: '\n'),
-                        TextSpan(
-                          text: 'Intentional.',
-                          style: TextStyle(color: theme.colorScheme.primary),
+                      ),
+                      Text(
+                        'Mindful.',
+                        style: theme.textTheme.displayLarge?.copyWith(
+                          fontSize: Responsive.value(
+                            context: context,
+                            mobile: 36.0,
+                            tablet: 56.0,
+                            desktop: 80.0,
+                          ),
+                          fontWeight: FontWeight.bold,
+                          height: 1.2,
+                          letterSpacing: 1,
+                          color: theme.colorScheme.onSurface,
                         ),
-                        const TextSpan(text: '\n'),
-                        TextSpan(
-                          text: 'Beautiful.',
-                          style: TextStyle(color: theme.colorScheme.secondary),
+                      ),
+                      Text(
+                        'Intentional.',
+                        style: theme.textTheme.displayLarge?.copyWith(
+                          fontSize: Responsive.value(
+                            context: context,
+                            mobile: 36.0,
+                            tablet: 56.0,
+                            desktop: 80.0,
+                          ),
+                          fontWeight: FontWeight.bold,
+                          height: 1.2,
+                          letterSpacing: 1,
+                          color: theme.colorScheme.primary,
                         ),
-                      ],
-                    ),
+                      ),
+                      Text(
+                        'Beautiful.',
+                        style: theme.textTheme.displayLarge?.copyWith(
+                          fontSize: Responsive.value(
+                            context: context,
+                            mobile: 36.0,
+                            tablet: 56.0,
+                            desktop: 80.0,
+                          ),
+                          fontWeight: FontWeight.bold,
+                          height: 1.2,
+                          letterSpacing: 1,
+                          color: theme.colorScheme.secondary,
+                        ),
+                      ),
+                    ],
                   ),
                 ).animate().fadeIn(duration: 600.ms, delay: 100.ms),
               ),
@@ -193,8 +218,7 @@ class _RotatingLifeText extends StatefulWidget {
   State<_RotatingLifeText> createState() => _RotatingLifeTextState();
 }
 
-class _RotatingLifeTextState extends State<_RotatingLifeText>
-    with SingleTickerProviderStateMixin {
+class _RotatingLifeTextState extends State<_RotatingLifeText> {
   static const List<String> _lifeTranslations = [
     '生命', // Chinese
     'حياة', // Arabic
@@ -211,30 +235,10 @@ class _RotatingLifeTextState extends State<_RotatingLifeText>
 
   int _currentIndex = 0;
   late Timer _timer;
-  late AnimationController _animationController;
-  late Animation<double> _fadeAnimation;
 
   @override
   void initState() {
     super.initState();
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 800),
-    );
-
-    _fadeAnimation = Tween<double>(
-      begin: 0.0,
-      end: 1.0,
-    ).animate(
-      CurvedAnimation(
-        parent: _animationController,
-        curve: Curves.easeInOut,
-      ),
-    );
-
-    // Start with first translation visible
-    _animationController.forward();
-
     // Rotate every 2 seconds (like a ticking clock)
     _timer = Timer.periodic(const Duration(seconds: 2), (timer) {
       _rotateText();
@@ -244,51 +248,39 @@ class _RotatingLifeTextState extends State<_RotatingLifeText>
   void _rotateText() {
     setState(() {
       _currentIndex = (_currentIndex + 1) % _lifeTranslations.length;
-      // Fade out, change text, fade in
-      _animationController.forward(from: 0.0);
     });
   }
 
   @override
   void dispose() {
     _timer.cancel();
-    _animationController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _fadeAnimation,
-      builder: (context, child) {
-        return Opacity(
-          opacity: _fadeAnimation.value,
-          child: Transform.scale(
-            scale: 0.95 + (_fadeAnimation.value * 0.05),
-            child: FittedBox(
-              fit: BoxFit.contain,
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: widget.isMobile ? 16 : 24,
-                  vertical: widget.isMobile ? 8 : 16,
-                ),
-                child: Text(
-                  _lifeTranslations[_currentIndex],
-                  style: widget.theme.textTheme.displayLarge?.copyWith(
-                    fontSize: widget.isMobile ? 120.0 : 200.0,
-                    fontWeight: FontWeight.w300,
-                    letterSpacing: 2,
-                    color: widget.theme.colorScheme.primary,
-                    height: 1.0,
-                  ),
-                  textAlign: TextAlign.center,
-                  maxLines: 1,
-                ),
-              ),
-            ),
+    return FittedBox(
+      fit: BoxFit.contain,
+      child: Padding(
+        padding: EdgeInsets.only(
+          left: widget.isMobile ? 16 : 24,
+          right: widget.isMobile ? 48 : 80,
+          top: widget.isMobile ? 8 : 16,
+          bottom: widget.isMobile ? 8 : 16,
+        ),
+        child: Text(
+          _lifeTranslations[_currentIndex],
+          style: widget.theme.textTheme.displayLarge?.copyWith(
+            fontSize: widget.isMobile ? 120.0 : 200.0,
+            fontWeight: FontWeight.w300,
+            letterSpacing: 2,
+            color: widget.theme.colorScheme.primary,
+            height: 1.0,
           ),
-        );
-      },
+          textAlign: TextAlign.center,
+          maxLines: 1,
+        ),
+      ),
     );
   }
 }
