@@ -34,6 +34,7 @@ class PhilosophyAndPrinciplesSection extends StatelessWidget {
       padding: Responsive.padding(context),
       child: Flex(
         direction: isMobile ? Axis.vertical : Axis.horizontal,
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Flexible(
@@ -59,21 +60,22 @@ class PhilosophyAndPrinciplesSection extends StatelessWidget {
     bool isMobile,
   ) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-              'Digital tools have become soulless.',
-              style: theme.textTheme.headlineLarge?.copyWith(
-                fontWeight: FontWeight.w700,
-                fontSize: Responsive.value(
-                  context: context,
-                  mobile: 32.0,
-                  tablet: 40.0,
-                  desktop: 48.0,
-                ),
-                color: theme.colorScheme.onSurface,
-              ),
-            )
+          'Digital tools have become soulless.',
+          style: theme.textTheme.headlineLarge?.copyWith(
+            fontWeight: FontWeight.w700,
+            fontSize: Responsive.value(
+              context: context,
+              mobile: 32.0,
+              tablet: 40.0,
+              desktop: 48.0,
+            ),
+            color: theme.colorScheme.onSurface,
+          ),
+        )
             .animate()
             .fadeIn(duration: 600.ms, delay: 200.ms)
             .slideX(begin: -0.2, end: 0, duration: 600.ms, delay: 200.ms),
@@ -81,14 +83,14 @@ class PhilosophyAndPrinciplesSection extends StatelessWidget {
           height: isMobile ? AppConstants.spacingMD : AppConstants.spacingLG,
         ),
         Text(
-              'I build tools that respect your attention. Every pixel is intentional. '
-              'This is slow, deliberate work. Built with care, not speed.',
-              style: theme.textTheme.titleMedium?.copyWith(
-                color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
-                height: 1.8,
-                fontSize: isMobile ? 16 : 18,
-              ),
-            )
+          'I build tools that respect your attention. Every pixel is intentional. '
+          'This is slow, deliberate work. Built with care, not speed.',
+          style: theme.textTheme.titleMedium?.copyWith(
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+            height: 1.8,
+            fontSize: isMobile ? 16 : 18,
+          ),
+        )
             .animate()
             .fadeIn(duration: 600.ms, delay: 400.ms)
             .slideX(begin: -0.2, end: 0, duration: 600.ms, delay: 400.ms),
@@ -102,6 +104,7 @@ class PhilosophyAndPrinciplesSection extends StatelessWidget {
     bool isMobile,
   ) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ...principles.asMap().entries.map((entry) {
@@ -109,67 +112,66 @@ class PhilosophyAndPrinciplesSection extends StatelessWidget {
           final principle = entry.value;
           final useSecondary = index == 1; // Middle item uses secondary
           return Padding(
-                padding: EdgeInsets.only(
-                  bottom: index < principles.length - 1
-                      ? (isMobile
-                            ? AppConstants.spacingSM
-                            : AppConstants.spacingMD)
-                      : 0,
+            padding: EdgeInsets.only(
+              bottom: index < principles.length - 1
+                  ? (isMobile ? AppConstants.spacingSM : AppConstants.spacingMD)
+                  : 0,
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(AppConstants.spacingSM),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(
+                      AppConstants.spacingSM,
+                    ),
+                    color: useSecondary
+                        ? theme.colorScheme.secondaryContainer
+                        : theme.colorScheme.primaryContainer,
+                  ),
+                  child: Icon(
+                    principle.$3,
+                    color: useSecondary
+                        ? theme.colorScheme.onSecondaryContainer
+                        : theme.colorScheme.onPrimaryContainer,
+                    size: AppConstants.spacingMD,
+                  ),
                 ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(AppConstants.spacingSM),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(
-                          AppConstants.spacingSM,
+                SizedBox(
+                  width: isMobile
+                      ? AppConstants.spacingSM
+                      : AppConstants.spacingLG,
+                ),
+                Expanded(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        principle.$1,
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.w600,
+                          fontSize: isMobile ? 18 : 20,
+                          color: theme.colorScheme.onSurface,
                         ),
-                        color: useSecondary
-                            ? theme.colorScheme.secondaryContainer
-                            : theme.colorScheme.primaryContainer,
                       ),
-                      child: Icon(
-                        principle.$3,
-                        color: useSecondary
-                            ? theme.colorScheme.onSecondaryContainer
-                            : theme.colorScheme.onPrimaryContainer,
-                        size: AppConstants.spacingMD,
-                      ),
-                    ),
-                    SizedBox(
-                      width: isMobile
-                          ? AppConstants.spacingSM
-                          : AppConstants.spacingLG,
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            principle.$1,
-                            style: theme.textTheme.titleMedium?.copyWith(
-                              fontWeight: FontWeight.w600,
-                              fontSize: isMobile ? 18 : 20,
-                              color: theme.colorScheme.onSurface,
-                            ),
+                      const SizedBox(height: 4),
+                      Text(
+                        principle.$2,
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: theme.colorScheme.onSurface.withValues(
+                            alpha: 0.7,
                           ),
-                          const SizedBox(height: 4),
-                          Text(
-                            principle.$2,
-                            style: theme.textTheme.bodyMedium?.copyWith(
-                              color: theme.colorScheme.onSurface.withValues(
-                                alpha: 0.7,
-                              ),
-                              height: 1.5,
-                            ),
-                          ),
-                        ],
+                          height: 1.5,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              )
+              ],
+            ),
+          )
               .animate()
               .fadeIn(duration: 500.ms, delay: (600 + (entry.key * 150)).ms)
               .slideX(

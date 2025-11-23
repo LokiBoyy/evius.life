@@ -15,12 +15,12 @@ class Footer extends StatelessWidget {
     return Padding(
       padding: Responsive.padding(context),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Divider(color: theme.colorScheme.outline, thickness: 1),
           SizedBox(
-            height: isMobile
-                ? AppConstants.spacingXXL
-                : AppConstants.spacingXXXL,
+            height:
+                isMobile ? AppConstants.spacingXXL : AppConstants.spacingXXXL,
           ),
           _buildAuthorCredit(context, theme),
           SizedBox(
@@ -28,9 +28,8 @@ class Footer extends StatelessWidget {
           ),
           _buildFooterLinks(context, theme, isMobile),
           SizedBox(
-            height: isMobile
-                ? AppConstants.spacingXXL
-                : AppConstants.spacingXXXL,
+            height:
+                isMobile ? AppConstants.spacingXXL : AppConstants.spacingXXXL,
           ),
         ],
       ),
@@ -38,8 +37,9 @@ class Footer extends StatelessWidget {
   }
 
   Widget _buildAuthorCredit(BuildContext context, ThemeData theme) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Wrap(
+      alignment: WrapAlignment.center,
+      crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         Icon(
           Icons.favorite,
@@ -119,8 +119,12 @@ class _FooterLinkState extends State<FooterLink> {
 
     return MouseRegion(
       cursor: SystemMouseCursors.click,
-      onEnter: (_) => setState(() => _isHovered = true),
-      onExit: (_) => setState(() => _isHovered = false),
+      onEnter: (_) {
+        if (mounted) setState(() => _isHovered = true);
+      },
+      onExit: (_) {
+        if (mounted) setState(() => _isHovered = false);
+      },
       child: GestureDetector(
         onTap: widget.onTap,
         child: AnimatedContainer(
@@ -139,8 +143,8 @@ class _FooterLinkState extends State<FooterLink> {
             border: Border.all(
               color: _isHovered
                   ? (isPrivacy
-                        ? theme.colorScheme.secondary.withValues(alpha: 0.3)
-                        : theme.colorScheme.primary.withValues(alpha: 0.3))
+                      ? theme.colorScheme.secondary.withValues(alpha: 0.3)
+                      : theme.colorScheme.primary.withValues(alpha: 0.3))
                   : Colors.transparent,
               width: 1,
             ),
@@ -153,8 +157,8 @@ class _FooterLinkState extends State<FooterLink> {
                 size: AppConstants.spacingSM,
                 color: _isHovered
                     ? (isPrivacy
-                          ? theme.colorScheme.secondary
-                          : theme.colorScheme.primary)
+                        ? theme.colorScheme.secondary
+                        : theme.colorScheme.primary)
                     : theme.colorScheme.onSurface.withValues(alpha: 0.6),
               ),
               const SizedBox(width: AppConstants.spacingXS),
@@ -163,8 +167,8 @@ class _FooterLinkState extends State<FooterLink> {
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: _isHovered
                       ? (isPrivacy
-                            ? theme.colorScheme.secondary
-                            : theme.colorScheme.primary)
+                          ? theme.colorScheme.secondary
+                          : theme.colorScheme.primary)
                       : theme.colorScheme.onSurface.withValues(alpha: 0.7),
                   fontWeight: _isHovered ? FontWeight.w500 : FontWeight.w400,
                   letterSpacing: 0.3,
